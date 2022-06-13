@@ -2,15 +2,31 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { TmdbService } from './tmdb.service';
+import { TmdbComponent } from './tmdb/tmdb.component';
+import { HttpClientModule} from '@angular/common/http'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MoviesComponent } from './movies/movies.component';
+import { TvCreditsComponent } from './tv-credits/tv-credits.component';
+import { CombinedCreditsComponent } from './combined-credits/combined-credits.component';
+import { ActorComponent } from './actor/actor.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TmdbComponent,
+    MoviesComponent,
+    TvCreditsComponent,
+    CombinedCreditsComponent,
+    ActorComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [TmdbService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
