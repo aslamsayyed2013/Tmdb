@@ -1,0 +1,140 @@
+<h1>Welcome to Tmdb</h1>
+<form [formGroup]="findArtistByIdForm">
+<input
+  type="text"
+  class="form-control"
+  placeholder="Enter"
+  formControlName="findById"
+  (keyup)="checkMethod()"
+/>
+<div *ngIf="findArtistByIdForm.controls?.['findById']!.errors?.['min'] && findArtistByIdForm.controls?.['findById']!.errors?.['required']">
+  Enter Valid Id
+</div>
+</form>
+
+<button (click)="getArtistById()">Search</button>
+
+<h2>Artist Data</h2>
+<div>
+<form action="">
+  <label >Name</label>
+  <div>{{artist?.name}}</div>
+  <label >Age</label>
+  <div>{{this.age}}</div>
+  <label >Gender</label>
+  <div>{{artist?.gender}}</div>
+  <label >Place of Birth</label>
+  <div>{{artist?.placeOfBirth}}</div>
+  <label >BirthDay</label>
+  <div>{{artist?.birthday}}</div>
+  <label >Type of Artist</label>
+  <div>{{this.type}}</div>
+</form>
+</div>
+
+<br>
+
+<app-movies
+[artist]="this.artist"
+(getMoviesToTmdb)="assignDataToMoviesObject($event)"
+></app-movies>
+
+<h2>All Movies Done by {{artist?.name}}</h2>
+<div *ngIf="isdisplayMovies">
+<div
+*ngFor="let movie of movies ">
+  <form>
+    <div>
+      <label>Title : {{movie.title}}</label>
+    </div>
+    <div>
+      <label>Character : {{movie.character}}</label>
+    </div>
+    <div>
+      <label>Original Language : {{movie.original_language}}</label>
+    </div>
+    <div>
+      <label>Vote Count : {{movie.vote_count}}</label>
+    </div>
+    <br>
+  </form>
+</div>
+</div>
+
+<app-tv-credits
+[artist]="this.artist"
+(getTvCreditsToTmdb)="assignDataToTvCreditsObject($event)"
+></app-tv-credits>
+
+<h2>All Tv Credits Done by {{artist?.name}}</h2>
+<div *ngIf="isDisplayTvCredits">
+<div
+*ngFor="let tvCredit of tvCredits ">
+  <form>
+    <div>
+      <label>Original Name : {{tvCredit.original_name}}</label>
+    </div>
+    <div>
+      <label>Character : {{tvCredit.character}}</label>
+    </div>
+    <div>
+      <label>Original Language : {{tvCredit.original_language}}</label>
+    </div>
+    <div>
+      <label>Vote Count : {{tvCredit.vote_count}}</label>
+    </div>
+    <br>
+  </form>
+</div>
+</div>
+
+<app-combined-credits
+[artist]="this.artist"
+(getCombinedCreditsToTmdb)="assignDataToCombinedCreditsObject($event)"
+></app-combined-credits>
+
+<h2>All Combined Credits Done by {{artist?.name}}</h2>
+<div *ngIf="isDisplayCombinedCredits">
+<div
+*ngFor="let combinedCredit of combinedCredits ">
+  <form>
+    <div>
+      <label>Original Name : {{combinedCredit.originalName}}</label>
+    </div>
+    <div>
+      <label>Character : {{combinedCredit.originalLanguage}}</label>
+    </div>
+    <div>
+      <label>Vote Count : {{combinedCredit.voteCount}}</label>
+    </div>
+    <br>
+  </form>
+</div>
+</div>
+
+<app-actor
+(getActorToTmdb)="assignDataToActorObject($event)"
+></app-actor>
+
+<div *ngIf="isDisplayCombinedCredits">
+<div
+*ngFor="let ac of actor ">
+  <form>
+    <div>
+      <label>Original Name : {{ac.name}}</label>
+    </div>
+    <div>
+      <label>Id : {{ac.id}}</label>
+    </div>
+    <br>
+  </form>
+</div>
+</div>
+
+
+
+
+
+
+
+

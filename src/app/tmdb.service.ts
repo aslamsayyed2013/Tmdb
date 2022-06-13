@@ -1,5 +1,5 @@
 import { Actor, Artist, CombinedCredits, Movies, TvCredits } from './tmdb/tmdb.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
@@ -10,11 +10,13 @@ export class TmdbService {
   private baseUrl:string = 'http://localhost:8080/tmdb'
 
   nameAndId: Subject<Actor>= new Subject();
-  id: Subject<Artist>= new Subject();
+  id: Subject<Actor>= new Subject();
   constructor(private http:HttpClient) { }
 
   getActorByName(name:string){
-    this.http.get<Actor>(this.baseUrl+ `${name}`)
+    debugger;
+    // return this.http.get<Actor []>(this.baseUrl + `${name}`)
+    return this.http.get<Actor []>(this.baseUrl,{params:{query:name}})
   }
 
   getArtistById(id :string):Observable<Artist>{

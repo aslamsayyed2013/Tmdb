@@ -1,0 +1,12 @@
+<h2>Actor by name</h2>
+<form [formGroup]="findActorByNameForm">
+<input
+  type="text"
+  class="form-control"
+  placeholder="Enter"
+  formControlName="findByName"
+>
+</form>
+
+<button (click)="getActorByName()">Search</button>
+
