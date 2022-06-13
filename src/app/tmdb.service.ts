@@ -9,8 +9,7 @@ import { Observable, Subject } from 'rxjs';
 export class TmdbService {
   private baseUrl:string = 'http://localhost:8080/tmdb'
 
-  nameAndId: Subject<Actor>= new Subject();
-  id: Subject<Actor>= new Subject();
+  artist: Subject<Artist>= new Subject();
   constructor(private http:HttpClient) { }
 
   getActorByName(name:string){

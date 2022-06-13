@@ -48,6 +48,7 @@ getById(id:string){
   .subscribe({
     next:(resp)=>{
       this.artist=resp;
+      this.TmdbService.artist.next(this.artist)
     if (this.artist?.birthday) {
       debugger;
       const bdate = new Date(this.artist?.birthday);

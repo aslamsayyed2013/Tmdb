@@ -1,6 +1,7 @@
 import { TmdbService } from './../tmdb.service';
-import { Artist, Movies } from './../tmdb/tmdb.model';
+import { Actor, Artist, Movies } from './../tmdb/tmdb.model';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-movies',
@@ -10,18 +11,29 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class MoviesComponent implements OnInit {
 
   movies: Movies[] = [];
+  artistBySubject: Artist | undefined;
+  subscriptions: Subscription[]=[];
 
   @Output() getMoviesToTmdb=new EventEmitter<Movies []>();
-  @Input('artist') artist:Artist | undefined;
+  // @Input('artist') artist:Artist | undefined;
 
   constructor(private tmdbService:TmdbService) { }
 
   ngOnInit(): void {
+    this.subscriptions.push(this.tmdbService.artist
+      .subscribe({
+        next:(resp)=>{
+          this.artistBySubject=resp;
+        }
+      }))
 
   }
 
   getMoviesByActorId(){
-    let id=this.artist?.id;
+    // let id=this.artist?.id;
+
+    let id=this.artistBySubject?.id;
+
 
     this.tmdbService.getMoviesByActorId(id)
     .subscribe({
