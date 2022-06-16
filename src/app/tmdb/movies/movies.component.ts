@@ -1,5 +1,5 @@
-import { TmdbService } from './../tmdb.service';
-import { Actor, Artist, Movies } from './../tmdb/tmdb.model';
+import { TmdbService } from '../../tmdb.service';
+import { Actor, Artist, Movies } from '../tmdb.model';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -11,34 +11,29 @@ import { Subscription } from 'rxjs';
 export class MoviesComponent implements OnInit {
 
   movies: Movies[] = [];
-  artistBySubject: Artist | undefined;
+  artist: Artist | undefined;
   subscriptions: Subscription[]=[];
 
   @Output() getMoviesToTmdb=new EventEmitter<Movies []>();
-  // @Input('artist') artist:Artist | undefined;
 
   constructor(private tmdbService:TmdbService) { }
 
   ngOnInit(): void {
     this.subscriptions.push(this.tmdbService.artist
       .subscribe({
-        next:(resp)=>{
-          this.artistBySubject=resp;
+        next:(artist)=>{
+          this.artist=artist;
         }
       }))
-
   }
 
   getMoviesByActorId(){
-    // let id=this.artist?.id;
-
-    let id=this.artistBySubject?.id;
-
+    let id=this.artist?.id;
 
     this.tmdbService.getMoviesByActorId(id)
     .subscribe({
-      next:(resp)=>{
-        this.movies=resp;
+      next:(movies)=>{
+        this.movies=movies;
       }
     })
   }
@@ -48,5 +43,7 @@ export class MoviesComponent implements OnInit {
     this.getMoviesToTmdb.emit(this.movies);
   }
 
-
+  ngOnDestroy(): void {
+    this.subscriptions?.forEach((subscription) => subscription?.unsubscribe());
+  }
 }

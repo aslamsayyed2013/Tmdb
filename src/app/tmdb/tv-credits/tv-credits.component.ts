@@ -1,5 +1,5 @@
-import { TmdbService } from './../tmdb.service';
-import { Artist, TvCredits } from './../tmdb/tmdb.model';
+import { TmdbService } from '../../tmdb.service';
+import { Artist, TvCredits } from '../tmdb.model';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
@@ -24,8 +24,8 @@ export class TvCreditsComponent implements OnInit {
 
     this.tmdbService.getTvCreditsByActorId(id)
     .subscribe({
-      next:(resp)=>{
-        this.tvCredits=resp;
+      next:(tvCredits)=>{
+        this.tvCredits=tvCredits;
       }
     })
   }

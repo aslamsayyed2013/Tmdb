@@ -3,11 +3,11 @@
 <input
   type="text"
   class="form-control"
-  placeholder="Enter"
+  placeholder="Enter Id"
   formControlName="findById"
-  (keyup)="checkMethod()"
+  [class.is-invalid]="findArtistByIdForm.controls?.['findbyId']?.errors"
 />
-<div *ngIf="findArtistByIdForm.controls?.['findById']!.errors?.['min'] && findArtistByIdForm.controls?.['findById']!.errors?.['required']">
+<div *ngIf="findArtistByIdForm.controls?.['findById']!.errors?.['min'] || findArtistByIdForm.controls?.['findById']!.errors?.['required']">
   Enter Valid Id
 </div>
 </form>
@@ -28,18 +28,18 @@
   <label >BirthDay</label>
   <div>{{artist?.birthday}}</div>
   <label >Type of Artist</label>
-  <div>{{this.type}}</div>
+  <div>{{this.artistCategory}}</div>
 </form>
 </div>
 
 <br>
 
 <app-movies
-(getMoviesToTmdb)="assignDataToMoviesObject($event)"
+(getMoviesToTmdb)="assignDataFromMoviestoTmdbComponent($event)"
 ></app-movies>
 
 <h2>All Movies Done by {{artist?.name}}</h2>
-<div *ngIf="isdisplayMovies">
+<div *ngIf="displayMovies">
 <div
 *ngFor="let movie of movies ">
   <form>
@@ -62,11 +62,11 @@
 
 <app-tv-credits
 [artist]="this.artist"
-(getTvCreditsToTmdb)="assignDataToTvCreditsObject($event)"
+(getTvCreditsToTmdb)="assignDataFromTvCreditsToTmdbComponent($event)"
 ></app-tv-credits>
 
 <h2>All Tv Credits Done by {{artist?.name}}</h2>
-<div *ngIf="isDisplayTvCredits">
+<div *ngIf="displayTvCredits">
 <div
 *ngFor="let tvCredit of tvCredits ">
   <form>
@@ -89,11 +89,11 @@
 
 <app-combined-credits
 [artist]="this.artist"
-(getCombinedCreditsToTmdb)="assignDataToCombinedCreditsObject($event)"
+(getCombinedCreditsToTmdb)="assignDataFromCombinedCreditsToTmdbComponent($event)"
 ></app-combined-credits>
 
 <h2>All Combined Credits Done by {{artist?.name}}</h2>
-<div *ngIf="isDisplayCombinedCredits">
+<div *ngIf="displayCombinedCredits">
 <div
 *ngFor="let combinedCredit of combinedCredits ">
   <form>
@@ -112,18 +112,18 @@
 </div>
 
 <app-actor
-(getActorToTmdb)="assignDataToActorObject($event)"
+(getActorToTmdb)="assignDataFromActorToTmdbComponent($event)"
 ></app-actor>
 
-<div *ngIf="isDisplayCombinedCredits">
+<div *ngIf="displayCombinedCredits">
 <div
-*ngFor="let ac of actor ">
+*ngFor="let actor of actors ">
   <form>
     <div>
-      <label>Original Name : {{ac.name}}</label>
+      <label>Original Name : {{actor.name}}</label>
     </div>
     <div>
-      <label>Id : {{ac.id}}</label>
+      <label>Id : {{actor.id}}</label>
     </div>
     <br>
   </form>

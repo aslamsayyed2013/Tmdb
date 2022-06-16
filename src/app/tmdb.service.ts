@@ -13,8 +13,6 @@ export class TmdbService {
   constructor(private http:HttpClient) { }
 
   getActorByName(name:string){
-    debugger;
-    // return this.http.get<Actor []>(this.baseUrl + `${name}`)
     return this.http.get<Actor []>(this.baseUrl,{params:{query:name}})
   }
 
@@ -33,5 +31,4 @@ export class TmdbService {
   getCombinedCreditsByActorId(id: string | undefined) {
     return this.http.get<CombinedCredits []>(this.baseUrl + `/${id}` + `/combined_credits`)
   }
-
 }

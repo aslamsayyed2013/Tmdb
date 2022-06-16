@@ -1,6 +1,6 @@
-import { TmdbService } from './../tmdb.service';
+import { TmdbService } from '../../tmdb.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Actor } from '../tmdb/tmdb.model';
+import { Actor } from '../tmdb.model';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -12,7 +12,7 @@ export class ActorComponent implements OnInit {
 
   @Output() getActorToTmdb=new EventEmitter<Actor []>();
 
-  actor:Actor [] = [];
+  actors:Actor [] = [];
 
   findActorByNameForm: FormGroup = new FormGroup({
     findByName: new FormControl('', ),
@@ -24,20 +24,18 @@ export class ActorComponent implements OnInit {
   }
 
   getByName(){
-    debugger;
     let name=this.findActorByNameForm?.controls?.['findByName'].value;
     this.tmdbService.getActorByName(name)
     .subscribe({
-      next:(resp)=>{
-        this.actor=resp;
+      next:(actors)=>{
+        this.actors=actors;
       }
     })
-
-
   }
+
   getActorByName(){
     this.getByName();
-    this.getActorToTmdb.emit(this.actor);
+    this.getActorToTmdb.emit(this.actors);
   }
 }
 

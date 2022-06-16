@@ -1,5 +1,5 @@
-import { TmdbService } from './../tmdb.service';
-import { Artist, CombinedCredits } from './../tmdb/tmdb.model';
+import { TmdbService } from '../../tmdb.service';
+import { Artist, CombinedCredits } from '../tmdb.model';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -23,8 +23,8 @@ export class CombinedCreditsComponent implements OnInit {
 
     this.tmdbService.getCombinedCreditsByActorId(id)
     .subscribe({
-      next:(resp)=>{
-        this.combinedCredits=resp
+      next:(combinedCredits)=>{
+        this.combinedCredits=combinedCredits
       }
     })
   }
@@ -33,5 +33,4 @@ export class CombinedCreditsComponent implements OnInit {
     this.getCombinedCreditsByActorId();
     this.getCombinedCreditsToTmdb.emit(this.combinedCredits);
   }
-
 }
